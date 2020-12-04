@@ -15,14 +15,14 @@ public class Elevatot {
     private int peoFloor;//设置人所在的楼层
     private int flool=Math.abs(goFloor-thisFloor);//设置电梯；楼层的差值
     private int waitTime=flool*2;//设置电梯等待时间
-    private int elevator;//电梯运行状态
-    private int dooropen;//电梯门的状态
+    private int elevator;//电梯运行状态1上升2下降3停止
+    private int dooropen;//电梯门的状态1开启2关闭 其他不明
     private int ispenIn;//设置人的状态：在电梯里，在电梯外。
-    private  int EnElePeo;//设置电梯计入人数
+    private  int EnElePeo;//设置电梯所有人数
     private int inPeoWeight=EnElePeo*60;//设置电梯里的所有人的重量;
     private int goEntpeo;//设置电梯进入人数
     private int goOutPeo;//设置出去人员数量
-    private int chuanganqi;//设置门的传感器
+    private int chuanganqi;//设置门的传感器1有东西 2没东西3不明
 
     public int getChuanganqi() {
         return chuanganqi;

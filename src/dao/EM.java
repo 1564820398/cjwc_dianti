@@ -27,10 +27,10 @@ public interface EM {
     public void boolContinue();//判断程序是否继续
     public void showPeoFloor();//显示人当前所在楼层
     public void EleGoPeo();//电梯到人的位置。在人要进入电梯时
-      public void boolInElePeoNum();//判断电梯里的人数
-    public void goUp();//
-    public void goDown();//
+    public void boolInElePeoNum();//判断电梯里的人数
+    public void goUp();//电梯里的人进行移动
+    public void goDown();//电梯利德尔进行移动
     public void boolSomething();//判断传感器是否有都行
-    public void showCGQ();
+    public void showCGQ();//显示传感器
 
 }

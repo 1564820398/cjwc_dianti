@@ -9,7 +9,7 @@ public class TestMAin {
        //
        // em.end();
     em.start();
-        em.chooseOutEleFloor();
+      //  em.chooseOutEleFloor();
    //     开始
      //   em.backToDefault();
    //     em.EleGoPeo();

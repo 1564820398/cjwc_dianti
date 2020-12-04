@@ -18,14 +18,12 @@ public class ElevatorMethod implements EM {
 
     public void start() {//开始
         System.out.println("电梯程序开始运行" );
-        showPeoFloor();
-        showFloor();
-        boolEleRun();
-        boolDoorOpen();
+        chooseOutEleFloor();
     }
 
     public void end() {//关闭
-        boolContinue();
+        System.out.println("程序结束");
+        System.out.println("感谢使用");
     }
 
     public void openDoor() {//开门
@@ -70,6 +68,7 @@ public class ElevatorMethod implements EM {
 
     public void EleGoPeo() {
         if (e.getPeoFloor() > e.getThisFloor()) {
+
             doUp();
         } else if (e.getPeoFloor() < e.getThisFloor()) {
             doDown();
@@ -81,7 +80,13 @@ public class ElevatorMethod implements EM {
 
     @Override
     public void boolInElePeoNum() {
-
+        if (e.getEnElePeo()==1){
+            runAsONe();
+        }else if (e.getEnElePeo()==0){
+            boolContinue();
+        }else {
+            runAsManyPeo();
+        }
     }
 
     @Override
@@ -137,9 +142,14 @@ public class ElevatorMethod implements EM {
         if (e.getChuanganqi()==1){
             System.out.println("传感器有东西门不能关闭电梯门,电梯门持续开启");
             e.setDooropen(1);
+            boolDoorOpen();
         }else if (e.getChuanganqi()==2){
             System.out.println("当前电梯门传感器没有感应到东西 可以关闭电梯门");
             e.setDooropen(2);
+            boolDoorOpen();
+
+        }else{
+            System.out.println("当前状态不明");
         }
 
     }
@@ -151,8 +161,13 @@ public class ElevatorMethod implements EM {
     }
 
     public void doUp() {
-        showFloor();
-        closeDoor();
+        System.out.println(e.getDooropen());
+        if (e.getDooropen()==2){
+            System.out.println("1");
+        }else {
+            closeDoor();
+        }
+
         totop();
         boolEleRun();
         for (int i = e.getThisFloor() + 1; i <= e.getPeoFloor(); i++) {
@@ -172,9 +187,11 @@ public class ElevatorMethod implements EM {
     }
 
     public void doDown() {
-        showFloor();
-        closeDoor();
-        e.setElevator(2);
+        if (e.getDooropen()==2){
+            System.out.println("1");
+        }else {
+            closeDoor();
+        }        e.setElevator(2);
         boolEleRun();
         for (int i = e.getThisFloor() - 1; i >= e.getPeoFloor(); i--) {
             e.setThisFloor(i);
@@ -207,7 +224,7 @@ public class ElevatorMethod implements EM {
             goDown();
             peoOutEle();
         }  else  {
-
+            System.out.println("选择楼层出错");
         }
     }
 
@@ -217,16 +234,25 @@ public class ElevatorMethod implements EM {
         //设置传感器
         e.setChuanganqi(1);
         boolSomething();
+        //输入进入人数
+        System.out.println("请输入进来的人数");
+        int peosum = sc.nextInt();
+        e.setGoEntpeo(peosum);
+        boolOverload();        //输入结束，判断超载，关门
         e.setChuanganqi(2);
         boolSomething();
+        //判断进来是否为一个人
+        boolInElePeoNum();
 
-        chooseINEleFloor();
-        // boolOverload();
     }
 
     @Override
     public void peoOutEle() {
         System.out.println("人出来了");
+        //设置传感器，进行开门操作 模拟走出
+        e.setChuanganqi(1);
+        boolSomething();
+        //判断走出人数
         System.out.println("请输入走出人数");
         int peo = sc.nextInt();
         if (peo > e.getEnElePeo()) {
@@ -236,6 +262,7 @@ public class ElevatorMethod implements EM {
             System.out.println("剩余多少人");
             e.setEnElePeo(e.getEnElePeo() - peo);
             System.out.println(e.getEnElePeo());
+            boolInElePeoNum();
 
         }
 
@@ -243,6 +270,7 @@ public class ElevatorMethod implements EM {
 
     @Override
     public void boolOverload() {
+        e.setEnElePeo(e.getGoEntpeo()-e.getGoOutPeo());
         if (e.getEnElePeo() > e.getTOTALPEOSUM() | e.getInPeoWeight() > e.getTOTALPEOWEIGHT()) {
             System.out.println("当前人数" + e.getEnElePeo());
             System.out.println("超重，请走出一些人");
@@ -274,14 +302,8 @@ public void boolhasPeo(){
         }
 }
     @Override
-    public void chooseINEleFloor() {
-        System.out.println("请输入进来的人数");
-        int peosum = sc.nextInt();
-        e.setGoEntpeo(peosum);
-        boolOverload();
-        e.setEnElePeo(e.getGoEntpeo());
+    public void chooseINEleFloor() {//输入进入人数
 
-        boolEleUD();
 
     }
 
@@ -289,7 +311,6 @@ public void boolhasPeo(){
     public void chooseOutEleFloor() {
         showFloor();
         showPeoFloor();
-
         if (e.getPeoFloor() == e.getMInFLOOR()) {
             System.out.println("您当前在" + e.getPeoFloor() + "楼,只能上楼");
             System.out.println("请选择是否上楼：上楼请按1");
@@ -332,18 +353,19 @@ public void boolhasPeo(){
     public void backToDefault() {
         System.out.println("电梯回到默认点1L");
         e.setThisFloor(1);
-        System.out.println(e.getThisFloor());
     }
 
     @Override
     public void runAsONe() {
         System.out.println("启动电梯只有一个人");
+        boolEleUD();
 
     }
 
     @Override
     public void runAsManyPeo() {
         System.out.println("启动电梯里有多人");
+        boolEleUD();
     }
 
     @Override
@@ -352,9 +374,10 @@ public void boolhasPeo(){
         System.out.println("按Y继续，N退出程序");
         String choose = sc.next();
         if (choose.equals("y")) {
+            backToDefault();
             chooseOutEleFloor();
-        } else if (choose.equals("N")) {
-            System.out.println("程序结束");
+        } else if (choose.equals("n")) {
+            end();
         } else {
         boolContinue();
         }
