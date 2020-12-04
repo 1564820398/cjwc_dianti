@@ -22,6 +22,15 @@ public class Elevatot {
     private int inPeoWeight=EnElePeo*60;//设置电梯里的所有人的重量;
     private int goEntpeo;//设置电梯进入人数
     private int goOutPeo;//设置出去人员数量
+    private int chuanganqi;//设置门的传感器
+
+    public int getChuanganqi() {
+        return chuanganqi;
+    }
+
+    public void setChuanganqi(int chuanganqi) {
+        this.chuanganqi = chuanganqi;
+    }
 
     public int getPeoFloor() {
         return peoFloor;

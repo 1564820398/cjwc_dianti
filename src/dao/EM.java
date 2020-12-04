@@ -5,6 +5,7 @@ import java.security.PublicKey;
 public interface EM {
     public void start();
     public void end();
+
     public void openDoor();//开门
     public void closeDoor();//关门
     public void boolDoorOpen();//判断们是否开启
@@ -16,9 +17,8 @@ public interface EM {
     public void peoEntEle();//人进入电梯
     public void peoOutEle();//人走出电梯
     public void boolOverload();//判断电梯是否超载
-    public void boolInElePeoNum();//判断电梯里的人数
-    public void toThetop();//电梯到最高层
-    public void toTheBom();//电梯到最底层
+    public void totop();//电梯到最高层
+    public void toBom();//电梯到最底层
     public void chooseINEleFloor();//选择电梯按键
     public void chooseOutEleFloor();//选择电梯按键
     public void backToDefault();//回到默认地点
@@ -27,4 +27,10 @@ public interface EM {
     public void boolContinue();//判断程序是否继续
     public void showPeoFloor();//显示人当前所在楼层
     public void EleGoPeo();//电梯到人的位置。在人要进入电梯时
+      public void boolInElePeoNum();//判断电梯里的人数
+    public void goUp();//
+    public void goDown();//
+    public void boolSomething();//判断传感器是否有都行
+    public void showCGQ();
+
 }
